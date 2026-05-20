@@ -3,6 +3,13 @@ main = "src/index.js"
 compatibility_date = "2024-11-01"
 
 # Secrets (wrangler secret put 으로 설정):
-#   GITHUB_TOKEN       — repo 권한 PAT (Claude가 MCP로 호출 시 사용)
-#   GITHUB_REPO        — 예: khh0929/yahoosjpstudy
-#   MCP_SHARED_SECRET  — Connector에서 Authorization: Bearer <이값> 으로 보낼 시크릿
+#   GITHUB_TOKEN    — repo 권한 PAT (Claude가 MCP 툴 호출 시 GitHub push에 사용)
+#   GITHUB_REPO    — 예: khh0929/yahoosjpstudy
+#   AUTH_PASSWORD  — /authorize 페이지에서 입력할 비밀번호
+
+# KV namespace — OAuthProvider가 토큰/client 저장에 사용
+# 생성: npx wrangler kv namespace create OAUTH_KV
+# 출력으로 나온 id를 아래에 붙여넣기
+[[kv_namespaces]]
+binding = "OAUTH_KV"
+id = "REPLACE_WITH_KV_ID_AFTER_CREATE"

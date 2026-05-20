@@ -1,25 +1,128 @@
-// Cloudflare Worker — yahoosjpstudy deploy + MCP server
-// Endpoints:
-//   POST /        → Legacy: 앱 내 🚀 배포 버튼 (요청 본문에 token/repo/files)
-//   POST /mcp     → MCP JSON-RPC over HTTP (Claude Custom Connector)
-//   GET  /health  → 동작 확인
+// Cloudflare Worker — yahoosjpstudy MCP server with OAuth 2.1
+//
+// Routes:
+//   POST /mcp            → MCP JSON-RPC (OAuth-protected, OAuthProvider 자동 검증)
+//   GET  /authorize      → 로그인 폼
+//   POST /authorize      → 비밀번호 검증 + completeAuthorization
+//   POST /token          → OAuthProvider 내부
+//   POST /register       → OAuthProvider 내부 (Dynamic Client Registration)
+//   GET  /.well-known/oauth-authorization-server → 메타데이터 (자동)
+//   POST /               → Legacy 앱 🚀 배포 버튼 (인증 없음, 호환성 유지)
+//   GET  /health         → 헬스체크
+
+import { OAuthProvider } from '@cloudflare/workers-oauth-provider';
 
 const MCP_PROTOCOL_VERSION = '2024-11-05';
 
-export default {
-  async fetch(request, env) {
+// ── MCP API handler (OAuth로 보호된 라우트) ─────────────────────────
+const apiHandler = {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
-
-    if (request.method === 'OPTIONS') return cors(new Response(null, { status: 204 }));
-    if (url.pathname === '/health') return cors(json({ ok: true }));
-    if (url.pathname === '/mcp' && request.method === 'POST') return cors(await handleMcp(request, env));
-    if (url.pathname === '/' && request.method === 'POST') return cors(await handleLegacyDeploy(request));
-
-    return cors(json({ error: 'not found' }, 404));
+    if (url.pathname !== '/mcp' || request.method !== 'POST') {
+      return cors(json({ error: 'not found' }, 404));
+    }
+    return cors(await handleMcp(request, env));
   },
 };
 
-// ── Legacy deploy (앱의 🚀 버튼이 호출) ─────────────────────────────
+// ── Default handler (인증 페이지 + 공개 라우트) ────────────────────
+const defaultHandler = {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+
+    if (request.method === 'OPTIONS') return cors(new Response(null, { status: 204 }));
+
+    if (url.pathname === '/health') return cors(json({ ok: true }));
+
+    if (url.pathname === '/' && request.method === 'POST') {
+      return cors(await handleLegacyDeploy(request));
+    }
+
+    if (url.pathname === '/authorize') {
+      if (request.method === 'GET') return await renderLoginGet(request, env);
+      if (request.method === 'POST') return await handleLoginPost(request, env);
+    }
+
+    return new Response('not found', { status: 404 });
+  },
+};
+
+export default new OAuthProvider({
+  apiRoute: '/mcp',
+  apiHandler,
+  defaultHandler,
+  authorizeEndpoint: '/authorize',
+  tokenEndpoint: '/token',
+  clientRegistrationEndpoint: '/register',
+});
+
+// ── OAuth: /authorize GET (로그인 폼) ───────────────────────────────
+async function renderLoginGet(request, env) {
+  const oauthReqInfo = await env.OAUTH_PROVIDER.parseAuthRequest(request);
+  const clientInfo = await env.OAUTH_PROVIDER.lookupClient(oauthReqInfo.clientId);
+  const clientName = clientInfo?.clientName || clientInfo?.clientId || 'Unknown client';
+
+  const encoded = btoa(JSON.stringify(oauthReqInfo));
+
+  const html = `<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>yahoosjpstudy 인증</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0a0a0f; color: #e8e0f0; min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; padding: 20px; }
+  .card { background: #12121a; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 32px; max-width: 360px; width: 100%; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: #9490a8; font-size: 13px; margin-bottom: 24px; }
+  .client { background: #1a1a26; border-radius: 10px; padding: 12px; margin-bottom: 20px; font-size: 13px; color: #c084fc; }
+  input { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); background: #1a1a26; color: #e8e0f0; font-size: 15px; box-sizing: border-box; outline: none; }
+  input:focus { border-color: #c084fc; }
+  button { width: 100%; padding: 13px; border-radius: 10px; border: none; background: linear-gradient(135deg, #7c3aed, #a855f7); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 12px; }
+  .err { color: #f87171; font-size: 13px; margin-top: 8px; min-height: 16px; }
+</style>
+</head><body>
+<form class="card" method="POST" action="/authorize">
+  <h1>🔐 yahoosjpstudy</h1>
+  <div class="sub">다음 앱이 너의 학습 데이터에 접근하려고 해</div>
+  <div class="client">${escapeHtml(clientName)}</div>
+  <input type="hidden" name="oauthReqInfo" value="${encoded}" />
+  <input type="password" name="password" placeholder="비밀번호" autofocus required />
+  <button type="submit">승인하기</button>
+  <div class="err"></div>
+</form>
+</body></html>`;
+
+  return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+}
+
+// ── OAuth: /authorize POST (비밀번호 검증) ─────────────────────────
+async function handleLoginPost(request, env) {
+  const formData = await request.formData();
+  const password = formData.get('password');
+  const encoded = formData.get('oauthReqInfo');
+
+  if (!encoded || !password) return new Response('잘못된 요청', { status: 400 });
+  if (!env.AUTH_PASSWORD) return new Response('서버에 AUTH_PASSWORD 시크릿이 설정 안 됨', { status: 500 });
+  if (password !== env.AUTH_PASSWORD) {
+    return new Response('❌ 비밀번호 틀렸어요. 뒤로 가서 다시 시도.', { status: 401, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+  }
+
+  let oauthReqInfo;
+  try { oauthReqInfo = JSON.parse(atob(encoded)); }
+  catch { return new Response('잘못된 요청', { status: 400 }); }
+
+  const { redirectTo } = await env.OAUTH_PROVIDER.completeAuthorization({
+    request: oauthReqInfo,
+    userId: 'owner',
+    metadata: { label: 'yahoosjpstudy owner' },
+    scope: oauthReqInfo.scope,
+    props: { userId: 'owner' },
+  });
+
+  return Response.redirect(redirectTo, 302);
+}
+
+// ── Legacy deploy endpoint (앱 🚀 버튼) ─────────────────────────────
 async function handleLegacyDeploy(request) {
   try {
     const { token, repo, message, files } = await request.json();
@@ -36,17 +139,11 @@ async function handleLegacyDeploy(request) {
   }
 }
 
-// ── MCP handler ────────────────────────────────────────────────────
+// ── MCP JSON-RPC handler ───────────────────────────────────────────
 async function handleMcp(request, env) {
-  // Bearer 인증 — Connector 등록 시 같은 시크릿을 헤더에 넣어야 함
-  const auth = request.headers.get('Authorization') || '';
-  const expected = env.MCP_SHARED_SECRET;
-  if (expected && auth !== `Bearer ${expected}`) {
-    return json({ jsonrpc: '2.0', error: { code: -32001, message: 'unauthorized' }, id: null }, 401);
-  }
-
   let msg;
-  try { msg = await request.json(); } catch { return json({ jsonrpc: '2.0', error: { code: -32700, message: 'parse error' }, id: null }, 400); }
+  try { msg = await request.json(); }
+  catch { return json({ jsonrpc: '2.0', error: { code: -32700, message: 'parse error' }, id: null }, 400); }
 
   const { method, params, id } = msg;
 
@@ -95,7 +192,7 @@ async function handleMcp(request, env) {
     try {
       if (name === 'update_data_json') {
         if (!args?.content) throw new Error('content required');
-        JSON.parse(args.content); // validate
+        JSON.parse(args.content);
         const r = await pushFile({
           token: env.GITHUB_TOKEN,
           repo: env.GITHUB_REPO,
@@ -165,4 +262,8 @@ function cors(res) {
   res.headers.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   return res;
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
