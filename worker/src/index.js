@@ -140,6 +140,24 @@ async function handleLegacyDeploy(request) {
 }
 
 // ── MCP JSON-RPC handler ───────────────────────────────────────────
+const SERVER_INSTRUCTIONS = `이 서버는 일본어 학습 앱(yahoosjpstudy)의 커리큘럼(public/data.json)을 관리합니다.
+
+⚡ 토큰 효율을 위해 다음 규칙을 지키세요:
+1. 작업 시작 전 항상 \`get_lesson_index\`로 현재 구조를 먼저 확인하세요 (전체 파일을 읽지 마세요).
+2. 변경할 때는 가능한 세분화된 도구를 사용하세요:
+   - 레슨 추가 → \`add_lesson\`
+   - 레슨 수정 → \`update_lesson\`
+   - 레슨 삭제 → \`delete_lesson\`
+   - 순서 변경 → \`reorder_lessons\`
+   - 특정 레슨 내용 확인 → \`get_lesson\`
+3. \`get_data_json\` / \`update_data_json\`은 대대적 구조 변경이 필요한 특수 상황에만 사용하세요 (전체 파일을 입출력에 싣게 되어 토큰 낭비).
+
+레슨 스키마:
+{ id: string(unique), title: string, category: "katakana"|"hiragana"|"vocabulary"|"grammar"|...,
+  items: [{ char: string, reading: string, romaji?: string, hint?: string }] }
+
+변경은 즉시 GitHub에 push되어 Vercel이 자동 빌드합니다.`;
+
 async function handleMcp(request, env) {
   let msg;
   try { msg = await request.json(); }
@@ -153,68 +171,247 @@ async function handleMcp(request, env) {
       result: {
         protocolVersion: MCP_PROTOCOL_VERSION,
         capabilities: { tools: {} },
-        serverInfo: { name: 'yahoosjpstudy-deploy', version: '1.0.0' },
+        serverInfo: { name: 'yahoosjpstudy-deploy', version: '2.0.0' },
+        instructions: SERVER_INSTRUCTIONS,
       },
     });
   }
 
   if (method === 'notifications/initialized') return new Response(null, { status: 204 });
 
-  if (method === 'tools/list') {
-    return json({
-      jsonrpc: '2.0', id,
-      result: {
-        tools: [
-          {
-            name: 'update_data_json',
-            description: '일본어 학습 앱의 data.json을 GitHub에 업데이트하고 Vercel 자동 배포를 트리거합니다. 전체 JSON 문자열을 넘기면 public/data.json을 통째로 교체합니다.',
-            inputSchema: {
-              type: 'object',
-              properties: {
-                content: { type: 'string', description: 'data.json 전체 내용 (JSON 문자열)' },
-                message: { type: 'string', description: 'GitHub 커밋 메시지' },
-              },
-              required: ['content'],
-            },
-          },
-          {
-            name: 'get_data_json',
-            description: '현재 GitHub에 올라간 data.json을 읽어옵니다.',
-            inputSchema: { type: 'object', properties: {} },
-          },
-        ],
-      },
-    });
-  }
+  if (method === 'tools/list') return json({ jsonrpc: '2.0', id, result: { tools: TOOL_DEFINITIONS } });
 
   if (method === 'tools/call') {
     const { name, arguments: args } = params || {};
     try {
-      if (name === 'update_data_json') {
-        if (!args?.content) throw new Error('content required');
-        JSON.parse(args.content);
-        const r = await pushFile({
-          token: env.GITHUB_TOKEN,
-          repo: env.GITHUB_REPO,
-          path: 'public/data.json',
-          base64Content: btoa(unescape(encodeURIComponent(args.content))),
-          message: args.message || `update data.json via Claude (${new Date().toISOString()})`,
-        });
-        return json({ jsonrpc: '2.0', id, result: { content: [{ type: 'text', text: `✅ data.json 업데이트 완료. commit: ${r.sha?.slice(0, 7)}` }] } });
-      }
-
-      if (name === 'get_data_json') {
-        const r = await fetchFile({ token: env.GITHUB_TOKEN, repo: env.GITHUB_REPO, path: 'public/data.json' });
-        return json({ jsonrpc: '2.0', id, result: { content: [{ type: 'text', text: r.content }] } });
-      }
-
-      throw new Error(`unknown tool: ${name}`);
+      const text = await callTool(name, args || {}, env);
+      return json({ jsonrpc: '2.0', id, result: { content: [{ type: 'text', text }] } });
     } catch (e) {
-      return json({ jsonrpc: '2.0', id, result: { content: [{ type: 'text', text: `❌ ${String(e)}` }], isError: true } });
+      return json({ jsonrpc: '2.0', id, result: { content: [{ type: 'text', text: `❌ ${String(e.message || e)}` }], isError: true } });
     }
   }
 
   return json({ jsonrpc: '2.0', id, error: { code: -32601, message: `method not found: ${method}` } });
+}
+
+// ── Tool definitions ───────────────────────────────────────────────
+const TOOL_DEFINITIONS = [
+  {
+    name: 'get_lesson_index',
+    description: '커리큘럼의 메타 정보만 가져옵니다. 각 레슨의 id, title, category, item 개수만 반환하여 토큰을 절약합니다. 작업 시작 전 항상 먼저 호출하세요.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'get_lesson',
+    description: '특정 레슨 하나의 전체 내용(items 포함)을 가져옵니다.',
+    inputSchema: {
+      type: 'object',
+      properties: { id: { type: 'string', description: '레슨 ID (예: hiragana-1)' } },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'add_lesson',
+    description: '새 레슨을 추가합니다. position을 지정하지 않으면 맨 끝에 추가됩니다. id가 이미 존재하면 실패합니다.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        lesson: {
+          type: 'object',
+          description: '추가할 레슨 객체. { id, title, category, items: [{ char, reading, romaji?, hint? }] }',
+        },
+        position: { type: 'number', description: '삽입 위치 (0-based). 생략 시 맨 끝.' },
+        message: { type: 'string', description: 'GitHub 커밋 메시지 (생략 시 자동 생성)' },
+      },
+      required: ['lesson'],
+    },
+  },
+  {
+    name: 'update_lesson',
+    description: '기존 레슨을 통째로 교체합니다. id로 찾아서 매칭되는 레슨을 새 객체로 대체합니다.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: '교체 대상 레슨 ID' },
+        lesson: { type: 'object', description: '새 레슨 객체 (id 포함, 변경 가능)' },
+        message: { type: 'string' },
+      },
+      required: ['id', 'lesson'],
+    },
+  },
+  {
+    name: 'delete_lesson',
+    description: '특정 레슨을 제거합니다.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: '제거할 레슨 ID' },
+        message: { type: 'string' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'reorder_lessons',
+    description: '레슨 순서를 재배치합니다. ids 배열의 순서대로 정렬되며, 누락된 레슨은 끝에 원래 순서대로 남습니다.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        ids: { type: 'array', items: { type: 'string' }, description: '원하는 순서의 레슨 ID 배열 (전부 나열하지 않아도 됨)' },
+        message: { type: 'string' },
+      },
+      required: ['ids'],
+    },
+  },
+  {
+    name: 'get_data_json',
+    description: '⚠️ 토큰 비쌈. 전체 data.json을 반환합니다. 구조 전체를 검토해야 하는 특수 상황에만 사용하세요. 일반적으로는 get_lesson_index + get_lesson 조합이 더 효율적입니다.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'update_data_json',
+    description: '⚠️ 토큰 비쌈 + 위험. data.json을 통째로 교체합니다. 대대적인 구조 변경이 필요한 특수 상황에만 사용하세요. 일반적인 레슨 추가/수정/삭제는 add_lesson 등 세분화 도구를 쓰세요.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        content: { type: 'string', description: 'data.json 전체 내용 (JSON 문자열)' },
+        message: { type: 'string' },
+      },
+      required: ['content'],
+    },
+  },
+];
+
+// ── Tool dispatch ──────────────────────────────────────────────────
+async function callTool(name, args, env) {
+  switch (name) {
+    case 'get_lesson_index': {
+      const data = await loadData(env);
+      const index = (data.curriculum || []).map((l, i) => ({
+        position: i,
+        id: l.id,
+        title: l.title,
+        category: l.category,
+        itemCount: Array.isArray(l.items) ? l.items.length : 0,
+      }));
+      return JSON.stringify({ version: data.version, totalLessons: index.length, lessons: index }, null, 2);
+    }
+
+    case 'get_lesson': {
+      requireString(args.id, 'id');
+      const data = await loadData(env);
+      const lesson = (data.curriculum || []).find((l) => l.id === args.id);
+      if (!lesson) throw new Error(`lesson not found: ${args.id}`);
+      return JSON.stringify(lesson, null, 2);
+    }
+
+    case 'add_lesson': {
+      const lesson = args.lesson;
+      validateLesson(lesson);
+      const data = await loadData(env);
+      data.curriculum ??= [];
+      if (data.curriculum.find((l) => l.id === lesson.id)) {
+        throw new Error(`lesson id already exists: ${lesson.id}. Use update_lesson instead.`);
+      }
+      const pos = Number.isInteger(args.position) ? Math.max(0, Math.min(args.position, data.curriculum.length)) : data.curriculum.length;
+      data.curriculum.splice(pos, 0, lesson);
+      const r = await saveData(env, data, args.message || `add lesson: ${lesson.title} (${lesson.id})`);
+      return `✅ 레슨 추가됨: ${lesson.id} @${pos}. commit ${r.sha?.slice(0, 7)}`;
+    }
+
+    case 'update_lesson': {
+      requireString(args.id, 'id');
+      validateLesson(args.lesson);
+      const data = await loadData(env);
+      const idx = (data.curriculum || []).findIndex((l) => l.id === args.id);
+      if (idx < 0) throw new Error(`lesson not found: ${args.id}`);
+      if (args.lesson.id !== args.id && data.curriculum.find((l, i) => i !== idx && l.id === args.lesson.id)) {
+        throw new Error(`new id collides with existing lesson: ${args.lesson.id}`);
+      }
+      data.curriculum[idx] = args.lesson;
+      const r = await saveData(env, data, args.message || `update lesson: ${args.lesson.title} (${args.id})`);
+      return `✅ 레슨 수정됨: ${args.id}. commit ${r.sha?.slice(0, 7)}`;
+    }
+
+    case 'delete_lesson': {
+      requireString(args.id, 'id');
+      const data = await loadData(env);
+      const idx = (data.curriculum || []).findIndex((l) => l.id === args.id);
+      if (idx < 0) throw new Error(`lesson not found: ${args.id}`);
+      const [removed] = data.curriculum.splice(idx, 1);
+      const r = await saveData(env, data, args.message || `delete lesson: ${removed.title} (${args.id})`);
+      return `✅ 레슨 삭제됨: ${args.id}. commit ${r.sha?.slice(0, 7)}`;
+    }
+
+    case 'reorder_lessons': {
+      if (!Array.isArray(args.ids)) throw new Error('ids must be an array');
+      const data = await loadData(env);
+      const byId = new Map((data.curriculum || []).map((l) => [l.id, l]));
+      const reordered = [];
+      for (const id of args.ids) {
+        const l = byId.get(id);
+        if (!l) throw new Error(`unknown id in ids: ${id}`);
+        reordered.push(l);
+        byId.delete(id);
+      }
+      for (const l of byId.values()) reordered.push(l); // 누락분은 원래 순서로 뒤에
+      data.curriculum = reordered;
+      const r = await saveData(env, data, args.message || `reorder ${args.ids.length} lessons`);
+      return `✅ 순서 변경됨 (${data.curriculum.length}개). commit ${r.sha?.slice(0, 7)}`;
+    }
+
+    case 'get_data_json': {
+      const r = await fetchFile({ token: env.GITHUB_TOKEN, repo: env.GITHUB_REPO, path: 'public/data.json' });
+      return r.content;
+    }
+
+    case 'update_data_json': {
+      requireString(args.content, 'content');
+      JSON.parse(args.content); // validate
+      const r = await pushFile({
+        token: env.GITHUB_TOKEN, repo: env.GITHUB_REPO, path: 'public/data.json',
+        base64Content: btoa(unescape(encodeURIComponent(args.content))),
+        message: args.message || `update data.json via Claude (${new Date().toISOString()})`,
+      });
+      return `✅ data.json 전체 교체됨. commit ${r.sha?.slice(0, 7)}`;
+    }
+
+    default:
+      throw new Error(`unknown tool: ${name}`);
+  }
+}
+
+// ── Data load/save helpers ─────────────────────────────────────────
+async function loadData(env) {
+  const r = await fetchFile({ token: env.GITHUB_TOKEN, repo: env.GITHUB_REPO, path: 'public/data.json' });
+  try { return JSON.parse(r.content); }
+  catch (e) { throw new Error(`failed to parse remote data.json: ${e.message}`); }
+}
+
+async function saveData(env, data, message) {
+  const content = JSON.stringify(data, null, 2);
+  return await pushFile({
+    token: env.GITHUB_TOKEN, repo: env.GITHUB_REPO, path: 'public/data.json',
+    base64Content: btoa(unescape(encodeURIComponent(content))),
+    message,
+  });
+}
+
+function validateLesson(lesson) {
+  if (!lesson || typeof lesson !== 'object') throw new Error('lesson must be an object');
+  requireString(lesson.id, 'lesson.id');
+  requireString(lesson.title, 'lesson.title');
+  requireString(lesson.category, 'lesson.category');
+  if (!Array.isArray(lesson.items) || lesson.items.length === 0) throw new Error('lesson.items must be a non-empty array');
+  lesson.items.forEach((it, i) => {
+    if (!it || typeof it !== 'object') throw new Error(`items[${i}] must be an object`);
+    requireString(it.char, `items[${i}].char`);
+    requireString(it.reading, `items[${i}].reading`);
+  });
+}
+
+function requireString(v, label) {
+  if (typeof v !== 'string' || !v.length) throw new Error(`${label} must be a non-empty string`);
 }
 
 // ── GitHub helpers ─────────────────────────────────────────────────
