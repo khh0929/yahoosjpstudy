@@ -4,10 +4,13 @@ import { TopBar } from '../components/TopBar.jsx';
 import { ProgressBar } from '../components/ProgressBar.jsx';
 
 const MODES = [
-  { id: 'typing', label: '✍️ 타이핑', shortLabel: '✍️' },
-  { id: 'choice', label: '📋 객관식', shortLabel: '📋' },
-  { id: 'reverse', label: '🔄 역방향', shortLabel: '🔄' },
+  { id: 'typing', label: '✍️ 타이핑' },
+  { id: 'choice', label: '📋 객관식' },
+  { id: 'reverse', label: '🔄 역방향' },
+  { id: 'random', label: '🎲 랜덤' },
 ];
+const RANDOM_POOL = ['typing', 'choice', 'reverse'];
+const MODE_BADGE = { typing: '✍️ 타이핑', choice: '📋 객관식', reverse: '🔄 역방향' };
 
 export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete, onBack }) {
   const [step, setStep] = useState(0);
@@ -21,10 +24,18 @@ export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete
   const [showHint, setShowHint] = useState(false);
   const [shaking, setShaking] = useState(false);
   const inputRef = useRef(null);
+  const stepModesRef = useRef({});
 
   const item = currentItems[step];
-  const isReverse = quizMode === 'reverse';
-  const isMultiple = quizMode === 'choice' || quizMode === 'reverse';
+
+  // random 모드일 때 step별로 한 번 결정 후 캐싱
+  useEffect(() => { stepModesRef.current = {}; }, [quizMode, isReview]);
+  if (quizMode === 'random' && stepModesRef.current[step] === undefined) {
+    stepModesRef.current[step] = RANDOM_POOL[Math.floor(Math.random() * RANDOM_POOL.length)];
+  }
+  const effectiveMode = quizMode === 'random' ? stepModesRef.current[step] : quizMode;
+  const isReverse = effectiveMode === 'reverse';
+  const isMultiple = effectiveMode === 'choice' || effectiveMode === 'reverse';
 
   useEffect(() => {
     if (!isMultiple) return;
@@ -35,7 +46,7 @@ export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete
       .map((i) => (isReverse ? i.char : i.reading));
     const correct = isReverse ? item.char : item.reading;
     setChoices([...wrong, correct].sort(() => Math.random() - 0.5));
-  }, [step, quizMode, item, allItems, isMultiple, isReverse]);
+  }, [step, effectiveMode, item, allItems, isMultiple, isReverse]);
 
   function checkAnswer(ans) {
     const trimmed = (ans ?? '').toString().trim();
@@ -70,10 +81,10 @@ export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete
   }
 
   useEffect(() => {
-    if (result === null && quizMode === 'typing' && inputRef.current) {
+    if (result === null && effectiveMode === 'typing' && inputRef.current) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
-  }, [step, result, quizMode]);
+  }, [step, result, effectiveMode]);
 
   const prompt = isReverse ? '이 발음에 해당하는 글자는?' : '이 글자를 읽어보세요';
 
@@ -95,6 +106,11 @@ export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete
       </div>
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 20px' }}>
+        {quizMode === 'random' && (
+          <div style={{ fontSize: 11, color: 'var(--accent)', background: 'rgba(192,132,252,0.08)', border: '1px solid rgba(192,132,252,0.25)', borderRadius: 999, padding: '3px 10px', marginBottom: 10, fontWeight: 600 }}>
+            🎲 {MODE_BADGE[effectiveMode]}
+          </div>
+        )}
         <div style={{ fontSize: 12, color: 'var(--text3)', marginBottom: 12 }}>{prompt}</div>
 
         <div className={shaking ? 'shake' : ''} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
@@ -124,7 +140,7 @@ export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete
         )}
 
         {result === null ? (
-          quizMode === 'typing' ? (
+          effectiveMode === 'typing' ? (
             <div style={{ width: '100%' }}>
               <input
                 ref={inputRef}
