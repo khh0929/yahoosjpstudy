@@ -3,6 +3,12 @@ import { speak } from '../lib/tts.js';
 import { TopBar } from '../components/TopBar.jsx';
 import { ProgressBar } from '../components/ProgressBar.jsx';
 
+const MODES = [
+  { id: 'typing', label: '✍️ 타이핑', shortLabel: '✍️' },
+  { id: 'choice', label: '📋 객관식', shortLabel: '📋' },
+  { id: 'reverse', label: '🔄 역방향', shortLabel: '🔄' },
+];
+
 export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete, onBack }) {
   const [step, setStep] = useState(0);
   const [answer, setAnswer] = useState('');
@@ -17,26 +23,27 @@ export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete
   const inputRef = useRef(null);
 
   const item = currentItems[step];
-
-  useEffect(() => { speak(item.char); }, [item.char, step]);
+  const isReverse = quizMode === 'reverse';
+  const isMultiple = quizMode === 'choice' || quizMode === 'reverse';
 
   useEffect(() => {
-    if (quizMode === 'choice') {
-      const wrong = allItems
-        .filter((i) => i.char !== item.char)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3)
-        .map((i) => i.reading);
-      const all = [...wrong, item.reading].sort(() => Math.random() - 0.5);
-      setChoices(all);
-    }
-  }, [step, quizMode, item, allItems]);
+    if (!isMultiple) return;
+    const wrong = allItems
+      .filter((i) => i.char !== item.char)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3)
+      .map((i) => (isReverse ? i.char : i.reading));
+    const correct = isReverse ? item.char : item.reading;
+    setChoices([...wrong, correct].sort(() => Math.random() - 0.5));
+  }, [step, quizMode, item, allItems, isMultiple, isReverse]);
 
   function checkAnswer(ans) {
-    const correct = ans.trim() === item.reading || ans.trim().toLowerCase() === item.romaji?.toLowerCase();
+    const trimmed = (ans ?? '').toString().trim();
+    const correct = isReverse
+      ? trimmed === item.char
+      : trimmed === item.reading || trimmed.toLowerCase() === item.romaji?.toLowerCase();
     setResult(correct ? 'correct' : 'wrong');
-    const newResults = [...results, { id: item.char, correct }];
-    setResults(newResults);
+    setResults((r) => [...r, { id: item.char, correct }]);
     if (!correct) {
       setWrongItems((w) => (w.find((x) => x.char === item.char) ? w : [...w, item]));
       setShaking(true);
@@ -68,29 +75,46 @@ export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete
     }
   }, [step, result, quizMode]);
 
+  const prompt = isReverse ? '이 발음에 해당하는 글자는?' : '이 글자를 읽어보세요';
+
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', flexDirection: 'column' }}>
       <TopBar title={isReview ? '🔄 틀린 것 복습' : '퀴즈'} right={`${step + 1}/${currentItems.length}`} onBack={onBack} />
       <ProgressBar value={(step + 1) / currentItems.length} color={isReview ? 'var(--yellow)' : undefined} />
 
       <div style={{ display: 'flex', margin: '12px 20px', background: 'var(--bg2)', borderRadius: 12, padding: 3, border: '1px solid var(--border)' }}>
-        {['typing', 'choice'].map((mode) => (
+        {MODES.map((m) => (
           <button
-            key={mode}
-            onClick={() => onModeChange(mode)}
-            style={{ flex: 1, padding: '8px', borderRadius: 9, border: 'none', background: quizMode === mode ? 'var(--bg3)' : 'transparent', color: quizMode === mode ? 'var(--text)' : 'var(--text3)', fontSize: 13, cursor: 'pointer', fontWeight: quizMode === mode ? 600 : 400, transition: 'all 0.15s' }}
+            key={m.id}
+            onClick={() => onModeChange(m.id)}
+            style={{ flex: 1, padding: '8px 4px', borderRadius: 9, border: 'none', background: quizMode === m.id ? 'var(--bg3)' : 'transparent', color: quizMode === m.id ? 'var(--text)' : 'var(--text3)', fontSize: 12, cursor: 'pointer', fontWeight: quizMode === m.id ? 600 : 400, transition: 'all 0.15s' }}
           >
-            {mode === 'typing' ? '✍️ 타이핑' : '📋 객관식'}
+            {m.label}
           </button>
         ))}
       </div>
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 20px' }}>
-        <div style={{ fontSize: 12, color: 'var(--text3)', marginBottom: 12 }}>이 글자를 읽어보세요</div>
+        <div style={{ fontSize: 12, color: 'var(--text3)', marginBottom: 12 }}>{prompt}</div>
 
         <div className={shaking ? 'shake' : ''} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-          <div style={{ fontSize: 96, lineHeight: 1, fontFamily: 'Noto Sans JP, sans-serif' }}>{item.char}</div>
-          <button onClick={() => speak(item.char)} style={{ background: 'var(--bg2)', border: '1px solid var(--border2)', color: 'var(--text)', borderRadius: 12, padding: '10px', fontSize: 20, cursor: 'pointer' }}>🔊</button>
+          {isReverse ? (
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 56, fontWeight: 700, color: 'var(--accent)', lineHeight: 1.1 }}>{item.reading}</div>
+              {item.romaji && (
+                <div style={{ fontSize: 16, color: 'var(--text2)', fontFamily: 'DM Mono, monospace', marginTop: 6 }}>{item.romaji}</div>
+              )}
+            </div>
+          ) : (
+            <div style={{ fontSize: 96, lineHeight: 1, fontFamily: 'Noto Sans JP, sans-serif' }}>{item.char}</div>
+          )}
+          <button
+            onClick={() => speak(item.char)}
+            title="발음 듣기"
+            style={{ background: 'var(--bg2)', border: '1px solid var(--border2)', color: 'var(--text)', borderRadius: 12, padding: '10px', fontSize: 20, cursor: 'pointer' }}
+          >
+            🔊
+          </button>
         </div>
 
         {showHint && (
@@ -131,7 +155,13 @@ export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete
                 <button
                   key={i}
                   onClick={() => checkAnswer(c)}
-                  style={{ padding: '16px', borderRadius: 12, border: '1px solid var(--border2)', background: 'var(--bg2)', color: 'var(--text)', fontSize: 16, cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}
+                  style={{
+                    padding: '16px', borderRadius: 12, border: '1px solid var(--border2)',
+                    background: 'var(--bg2)', color: 'var(--text)',
+                    fontSize: isReverse ? 22 : 16,
+                    fontFamily: isReverse ? 'Noto Sans JP, sans-serif' : 'inherit',
+                    cursor: 'pointer', textAlign: isReverse ? 'center' : 'left', transition: 'all 0.15s',
+                  }}
                 >
                   {c}
                 </button>
@@ -143,7 +173,11 @@ export function QuizScreen({ items, allItems, quizMode, onModeChange, onComplete
             <div style={{ padding: '20px', borderRadius: 14, background: result === 'correct' ? 'rgba(74,222,128,0.08)' : 'rgba(248,113,113,0.08)', border: `1px solid ${result === 'correct' ? 'rgba(74,222,128,0.25)' : 'rgba(248,113,113,0.25)'}`, textAlign: 'center', marginBottom: 12 }}>
               <div style={{ fontSize: 32, marginBottom: 8 }}>{result === 'correct' ? '🎉' : '😅'}</div>
               <div style={{ fontSize: 15, color: result === 'correct' ? 'var(--green)' : 'var(--red)', fontWeight: 600 }}>
-                {result === 'correct' ? '정답!' : `정답: ${item.reading} (${item.romaji})`}
+                {result === 'correct'
+                  ? '정답!'
+                  : isReverse
+                    ? `정답: ${item.char}`
+                    : `정답: ${item.reading} (${item.romaji})`}
               </div>
               {result === 'wrong' && <div style={{ fontSize: 12, color: 'var(--text3)', marginTop: 6 }}>💡 {item.hint}</div>}
             </div>
