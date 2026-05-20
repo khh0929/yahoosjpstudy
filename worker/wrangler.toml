@@ -1,0 +1,8 @@
+name = "wispy-voice-ac17"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Secrets (wrangler secret put 으로 설정):
+#   GITHUB_TOKEN       — repo 권한 PAT (Claude가 MCP로 호출 시 사용)
+#   GITHUB_REPO        — 예: khh0929/yahoosjpstudy
+#   MCP_SHARED_SECRET  — Connector에서 Authorization: Bearer <이값> 으로 보낼 시크릿

@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.vercel/
+
+# Local backups / scratch
+files/
+files.zip
+*.local
+
+# Secrets — anything with tokens
+deploy.ps1
+.env
+.env.local
+.env.*.local
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.claude/

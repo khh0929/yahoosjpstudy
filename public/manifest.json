@@ -1,0 +1,9 @@
+{
+  "name": "일본어 학습",
+  "short_name": "日本語",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0c29",
+  "theme_color": "#0f0c29",
+  "description": "매일 15분 일본어 학습"
+}

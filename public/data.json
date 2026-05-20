@@ -1,0 +1,197 @@
+{
+  "version": "1.0.0",
+  "curriculum": [
+    {
+      "id": "katakana-1",
+      "title": "가타가나 ア행",
+      "category": "katakana",
+      "items": [
+        { "char": "ア", "reading": "아", "romaji": "a", "hint": "A를 눕힌 모양" },
+        { "char": "イ", "reading": "이", "romaji": "i", "hint": "人(사람 인)처럼 생겼어요" },
+        { "char": "ウ", "reading": "우", "romaji": "u", "hint": "위에 점 + ㅗ 모양" },
+        { "char": "エ", "reading": "에", "romaji": "e", "hint": "工(공)자와 비슷해요" },
+        { "char": "オ", "reading": "오", "romaji": "o", "hint": "才(재주 재)와 비슷해요" }
+      ]
+    },
+    {
+      "id": "katakana-2",
+      "title": "가타가나 カ행",
+      "category": "katakana",
+      "items": [
+        { "char": "カ", "reading": "카", "romaji": "ka", "hint": "力(힘 력)과 비슷해요" },
+        { "char": "キ", "reading": "키", "romaji": "ki", "hint": "十자에 가로획 추가" },
+        { "char": "ク", "reading": "쿠", "romaji": "ku", "hint": "갈고리 모양, 획 2개" },
+        { "char": "ケ", "reading": "케", "romaji": "ke", "hint": "획이 3개, カ보다 복잡" },
+        { "char": "コ", "reading": "코", "romaji": "ko", "hint": "ㄷ자 모양" }
+      ]
+    },
+    {
+      "id": "katakana-3",
+      "title": "가타가나 サ행",
+      "category": "katakana",
+      "items": [
+        { "char": "サ", "reading": "사", "romaji": "sa", "hint": "十자 + 삐침" },
+        { "char": "シ", "reading": "시", "romaji": "shi", "hint": "점 2개 + 곡선 (웃는 얼굴)" },
+        { "char": "ス", "reading": "스", "romaji": "su", "hint": "스키 점프 선수 모양" },
+        { "char": "セ", "reading": "세", "romaji": "se", "hint": "せ를 각지게 만든 것" },
+        { "char": "ソ", "reading": "소", "romaji": "so", "hint": "점 1개 + 사선" }
+      ]
+    },
+    {
+      "id": "katakana-4",
+      "title": "가타가나 タ행",
+      "category": "katakana",
+      "items": [
+        { "char": "タ", "reading": "타", "romaji": "ta", "hint": "夕(저녁 석)과 비슷해요" },
+        { "char": "チ", "reading": "치", "romaji": "chi", "hint": "千(천)자와 비슷해요" },
+        { "char": "ツ", "reading": "츠", "romaji": "tsu", "hint": "점 2개 + 사선 (シ와 방향 반대)" },
+        { "char": "テ", "reading": "테", "romaji": "te", "hint": "テーブル(테이블)의 テ" },
+        { "char": "ト", "reading": "토", "romaji": "to", "hint": "세로선 + 짧은 가로선" }
+      ]
+    },
+    {
+      "id": "katakana-5",
+      "title": "가타가나 ナ행",
+      "category": "katakana",
+      "items": [
+        { "char": "ナ", "reading": "나", "romaji": "na", "hint": "十자와 비슷해요" },
+        { "char": "ニ", "reading": "니", "romaji": "ni", "hint": "二(이)자 그대로" },
+        { "char": "ヌ", "reading": "누", "romaji": "nu", "hint": "又(또 우)와 비슷해요" },
+        { "char": "ネ", "reading": "네", "romaji": "ne", "hint": "ネコ(고양이)의 ネ" },
+        { "char": "ノ", "reading": "노", "romaji": "no", "hint": "사선 하나" }
+      ]
+    },
+    {
+      "id": "katakana-6",
+      "title": "가타가나 ハ행",
+      "category": "katakana",
+      "items": [
+        { "char": "ハ", "reading": "하", "romaji": "ha", "hint": "八(여덟 팔)자 그대로" },
+        { "char": "ヒ", "reading": "히", "romaji": "hi", "hint": "가로선 + 사선" },
+        { "char": "フ", "reading": "후", "romaji": "fu", "hint": "후크 모양" },
+        { "char": "ヘ", "reading": "헤", "romaji": "he", "hint": "へ와 거의 같은 모양" },
+        { "char": "ホ", "reading": "호", "romaji": "ho", "hint": "木(나무 목) + 점 2개" }
+      ]
+    },
+    {
+      "id": "katakana-7",
+      "title": "가타가나 マ행",
+      "category": "katakana",
+      "items": [
+        { "char": "マ", "reading": "마", "romaji": "ma", "hint": "マンガ(만화)의 マ" },
+        { "char": "ミ", "reading": "미", "romaji": "mi", "hint": "가로선 3개" },
+        { "char": "ム", "reading": "무", "romaji": "mu", "hint": "△ + 아래획" },
+        { "char": "メ", "reading": "메", "romaji": "me", "hint": "X자 모양" },
+        { "char": "モ", "reading": "모", "romaji": "mo", "hint": "毛(털 모)와 비슷해요" }
+      ]
+    },
+    {
+      "id": "katakana-8",
+      "title": "가타가나 ヤ/ワ/ン행",
+      "category": "katakana",
+      "items": [
+        { "char": "ヤ", "reading": "야", "romaji": "ya", "hint": "也(어조사 야)와 비슷" },
+        { "char": "ユ", "reading": "유", "romaji": "yu", "hint": "由(말미암을 유)와 비슷" },
+        { "char": "ヨ", "reading": "요", "romaji": "yo", "hint": "三 + 세로선" },
+        { "char": "ワ", "reading": "와", "romaji": "wa", "hint": "ウ에서 변형" },
+        { "char": "ン", "reading": "은/n", "romaji": "n", "hint": "ソ와 헷갈리지 말아요! 더 가파른 각도" }
+      ]
+    },
+    {
+      "id": "katakana-9",
+      "title": "가타가나 ラ행",
+      "category": "katakana",
+      "items": [
+        { "char": "ラ", "reading": "라", "romaji": "ra", "hint": "良(좋을 량)에서 유래" },
+        { "char": "リ", "reading": "리", "romaji": "ri", "hint": "세로선 2개" },
+        { "char": "ル", "reading": "루", "romaji": "ru", "hint": "流(흐를 류)에서 유래" },
+        { "char": "レ", "reading": "레", "romaji": "re", "hint": "사선 하나 (ノ와 비슷)" },
+        { "char": "ロ", "reading": "로", "romaji": "ro", "hint": "口(입 구)자 그대로" }
+      ]
+    },
+    {
+      "id": "hiragana-1",
+      "title": "히라가나 あ행",
+      "category": "hiragana",
+      "items": [
+        { "char": "あ", "reading": "아", "romaji": "a", "hint": "安(편안 안)에서 유래" },
+        { "char": "い", "reading": "이", "romaji": "i", "hint": "以(써 이)에서 유래" },
+        { "char": "う", "reading": "우", "romaji": "u", "hint": "宇(집 우)에서 유래" },
+        { "char": "え", "reading": "에", "romaji": "e", "hint": "衣(옷 의)에서 유래" },
+        { "char": "お", "reading": "오", "romaji": "o", "hint": "於(어조사 어)에서 유래" }
+      ]
+    },
+    {
+      "id": "hiragana-2",
+      "title": "히라가나 か행",
+      "category": "hiragana",
+      "items": [
+        { "char": "か", "reading": "카", "romaji": "ka", "hint": "加(더할 가)에서 유래" },
+        { "char": "き", "reading": "키", "romaji": "ki", "hint": "幾(몇 기)에서 유래" },
+        { "char": "く", "reading": "쿠", "romaji": "ku", "hint": "久(오랠 구)에서 유래" },
+        { "char": "け", "reading": "케", "romaji": "ke", "hint": "計(셀 계)에서 유래" },
+        { "char": "こ", "reading": "코", "romaji": "ko", "hint": "己(몸 기)에서 유래" }
+      ]
+    },
+    {
+      "id": "hiragana-3",
+      "title": "히라가나 さ행",
+      "category": "hiragana",
+      "items": [
+        { "char": "さ", "reading": "사", "romaji": "sa", "hint": "左(왼 좌)에서 유래" },
+        { "char": "し", "reading": "시", "romaji": "shi", "hint": "之(갈 지)에서 유래" },
+        { "char": "す", "reading": "스", "romaji": "su", "hint": "寸(마디 촌)에서 유래" },
+        { "char": "せ", "reading": "세", "romaji": "se", "hint": "世(세상 세)에서 유래" },
+        { "char": "そ", "reading": "소", "romaji": "so", "hint": "曽(일찍 증)에서 유래" }
+      ]
+    },
+    {
+      "id": "hiragana-4",
+      "title": "히라가나 た행",
+      "category": "hiragana",
+      "items": [
+        { "char": "た", "reading": "타", "romaji": "ta", "hint": "太(클 태)에서 유래" },
+        { "char": "ち", "reading": "치", "romaji": "chi", "hint": "知(알 지)에서 유래" },
+        { "char": "つ", "reading": "츠", "romaji": "tsu", "hint": "川(내 천)에서 유래" },
+        { "char": "て", "reading": "테", "romaji": "te", "hint": "天(하늘 천)에서 유래" },
+        { "char": "と", "reading": "토", "romaji": "to", "hint": "止(그칠 지)에서 유래" }
+      ]
+    },
+    {
+      "id": "hiragana-5",
+      "title": "히라가나 な행",
+      "category": "hiragana",
+      "items": [
+        { "char": "な", "reading": "나", "romaji": "na", "hint": "奈(어찌 나)에서 유래" },
+        { "char": "に", "reading": "니", "romaji": "ni", "hint": "仁(어질 인)에서 유래" },
+        { "char": "ぬ", "reading": "누", "romaji": "nu", "hint": "奴(종 노)에서 유래" },
+        { "char": "ね", "reading": "네", "romaji": "ne", "hint": "祢(사당 니)에서 유래" },
+        { "char": "の", "reading": "노", "romaji": "no", "hint": "乃(이에 내)에서 유래" }
+      ]
+    },
+    {
+      "id": "basic-words-1",
+      "title": "기초 단어 - 인사",
+      "category": "vocabulary",
+      "items": [
+        { "char": "こんにちは", "reading": "안녕하세요", "romaji": "konnichiwa", "hint": "낮 인사" },
+        { "char": "おはよう", "reading": "좋은 아침", "romaji": "ohayou", "hint": "아침 인사" },
+        { "char": "こんばんは", "reading": "안녕하세요(저녁)", "romaji": "konbanwa", "hint": "저녁 인사" },
+        { "char": "ありがとう", "reading": "고마워요", "romaji": "arigatou", "hint": "감사 표현" },
+        { "char": "すみません", "reading": "실례합니다", "romaji": "sumimasen", "hint": "사과/주의 끌기" }
+      ]
+    },
+    {
+      "id": "basic-words-2",
+      "title": "기초 단어 - 숫자",
+      "category": "vocabulary",
+      "items": [
+        { "char": "いち", "reading": "일 (1)", "romaji": "ichi", "hint": "一" },
+        { "char": "に", "reading": "이 (2)", "romaji": "ni", "hint": "二" },
+        { "char": "さん", "reading": "삼 (3)", "romaji": "san", "hint": "三" },
+        { "char": "し/よん", "reading": "사 (4)", "romaji": "shi/yon", "hint": "四" },
+        { "char": "ご", "reading": "오 (5)", "romaji": "go", "hint": "五" }
+      ]
+    }
+  ]
+}
