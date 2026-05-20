@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "curriculum": [
     {
       "id": "katakana-1",
@@ -110,6 +110,54 @@
       ]
     },
     {
+      "id": "katakana-10",
+      "title": "가타가나 탁음 ガ/ザ/ダ행",
+      "category": "katakana",
+      "items": [
+        { "char": "ガ", "reading": "가", "romaji": "ga", "hint": "カ + 탁점(゛)" },
+        { "char": "ギ", "reading": "기", "romaji": "gi", "hint": "キ + 탁점(゛)" },
+        { "char": "グ", "reading": "구", "romaji": "gu", "hint": "ク + 탁점(゛)" },
+        { "char": "ゲ", "reading": "게", "romaji": "ge", "hint": "ケ + 탁점(゛)" },
+        { "char": "ゴ", "reading": "고", "romaji": "go", "hint": "コ + 탁점(゛)" }
+      ]
+    },
+    {
+      "id": "katakana-11",
+      "title": "가타가나 탁음 ザ/ダ행",
+      "category": "katakana",
+      "items": [
+        { "char": "ザ", "reading": "자", "romaji": "za", "hint": "サ + 탁점(゛)" },
+        { "char": "ジ", "reading": "지", "romaji": "ji", "hint": "シ + 탁점(゛)" },
+        { "char": "ズ", "reading": "즈", "romaji": "zu", "hint": "ス + 탁점(゛)" },
+        { "char": "ゼ", "reading": "제", "romaji": "ze", "hint": "セ + 탁점(゛)" },
+        { "char": "ゾ", "reading": "조", "romaji": "zo", "hint": "ソ + 탁점(゛)" }
+      ]
+    },
+    {
+      "id": "katakana-12",
+      "title": "가타가나 탁음 バ행 + 반탁음 パ행",
+      "category": "katakana",
+      "items": [
+        { "char": "バ", "reading": "바", "romaji": "ba", "hint": "ハ + 탁점(゛)" },
+        { "char": "ビ", "reading": "비", "romaji": "bi", "hint": "ヒ + 탁점(゛)" },
+        { "char": "ブ", "reading": "부", "romaji": "bu", "hint": "フ + 탁점(゛)" },
+        { "char": "ベ", "reading": "베", "romaji": "be", "hint": "ヘ + 탁점(゛)" },
+        { "char": "ボ", "reading": "보", "romaji": "bo", "hint": "ホ + 탁점(゛)" }
+      ]
+    },
+    {
+      "id": "katakana-13",
+      "title": "가타가나 반탁음 パ행",
+      "category": "katakana",
+      "items": [
+        { "char": "パ", "reading": "파", "romaji": "pa", "hint": "ハ + 반탁점(゜) 동그라미!" },
+        { "char": "ピ", "reading": "피", "romaji": "pi", "hint": "ヒ + 반탁점(゜)" },
+        { "char": "プ", "reading": "푸", "romaji": "pu", "hint": "フ + 반탁점(゜)" },
+        { "char": "ペ", "reading": "페", "romaji": "pe", "hint": "ヘ + 반탁점(゜)" },
+        { "char": "ポ", "reading": "포", "romaji": "po", "hint": "ホ + 반탁점(゜)" }
+      ]
+    },
+    {
       "id": "hiragana-1",
       "title": "히라가나 あ행",
       "category": "hiragana",
@@ -170,6 +218,62 @@
       ]
     },
     {
+      "id": "hiragana-6",
+      "title": "히라가나 は행",
+      "category": "hiragana",
+      "items": [
+        { "char": "は", "reading": "하", "romaji": "ha", "hint": "波(물결 파)에서 유래" },
+        { "char": "ひ", "reading": "히", "romaji": "hi", "hint": "比(견줄 비)에서 유래" },
+        { "char": "ふ", "reading": "후", "romaji": "fu", "hint": "不(아닐 불)에서 유래" },
+        { "char": "へ", "reading": "헤", "romaji": "he", "hint": "部(떼 부)에서 유래" },
+        { "char": "ほ", "reading": "호", "romaji": "ho", "hint": "保(지킬 보)에서 유래" }
+      ]
+    },
+    {
+      "id": "hiragana-7",
+      "title": "히라가나 ま행",
+      "category": "hiragana",
+      "items": [
+        { "char": "ま", "reading": "마", "romaji": "ma", "hint": "末(끝 말)에서 유래" },
+        { "char": "み", "reading": "미", "romaji": "mi", "hint": "美(아름다울 미)에서 유래" },
+        { "char": "む", "reading": "무", "romaji": "mu", "hint": "武(호반 무)에서 유래" },
+        { "char": "め", "reading": "메", "romaji": "me", "hint": "女(여자 녀)에서 유래" },
+        { "char": "も", "reading": "모", "romaji": "mo", "hint": "毛(털 모)에서 유래" }
+      ]
+    },
+    {
+      "id": "hiragana-8",
+      "title": "히라가나 や행",
+      "category": "hiragana",
+      "items": [
+        { "char": "や", "reading": "야", "romaji": "ya", "hint": "也(어조사 야)에서 유래" },
+        { "char": "ゆ", "reading": "유", "romaji": "yu", "hint": "由(말미암을 유)에서 유래" },
+        { "char": "よ", "reading": "요", "romaji": "yo", "hint": "與(줄 여)에서 유래" }
+      ]
+    },
+    {
+      "id": "hiragana-9",
+      "title": "히라가나 ら행",
+      "category": "hiragana",
+      "items": [
+        { "char": "ら", "reading": "라", "romaji": "ra", "hint": "良(좋을 량)에서 유래" },
+        { "char": "り", "reading": "리", "romaji": "ri", "hint": "利(이로울 리)에서 유래" },
+        { "char": "る", "reading": "루", "romaji": "ru", "hint": "留(머물 류)에서 유래" },
+        { "char": "れ", "reading": "레", "romaji": "re", "hint": "礼(예도 례)에서 유래" },
+        { "char": "ろ", "reading": "로", "romaji": "ro", "hint": "呂(음률 려)에서 유래" }
+      ]
+    },
+    {
+      "id": "hiragana-10",
+      "title": "히라가나 わ행 + ん",
+      "category": "hiragana",
+      "items": [
+        { "char": "わ", "reading": "와", "romaji": "wa", "hint": "和(화할 화)에서 유래" },
+        { "char": "を", "reading": "오/wo", "romaji": "wo", "hint": "목적격 조사로 주로 쓰여요" },
+        { "char": "ん", "reading": "은/n", "romaji": "n", "hint": "단독으로 쓰이는 유일한 자음" }
+      ]
+    },
+    {
       "id": "basic-words-1",
       "title": "기초 단어 - 인사",
       "category": "vocabulary",
@@ -190,7 +294,48 @@
         { "char": "に", "reading": "이 (2)", "romaji": "ni", "hint": "二" },
         { "char": "さん", "reading": "삼 (3)", "romaji": "san", "hint": "三" },
         { "char": "し/よん", "reading": "사 (4)", "romaji": "shi/yon", "hint": "四" },
-        { "char": "ご", "reading": "오 (5)", "romaji": "go", "hint": "五" }
+        { "char": "ご", "reading": "오 (5)", "romaji": "go", "hint": "五" },
+        { "char": "ろく", "reading": "육 (6)", "romaji": "roku", "hint": "六" },
+        { "char": "なな/しち", "reading": "칠 (7)", "romaji": "nana/shichi", "hint": "七" },
+        { "char": "はち", "reading": "팔 (8)", "romaji": "hachi", "hint": "八" },
+        { "char": "きゅう/く", "reading": "구 (9)", "romaji": "kyuu/ku", "hint": "九" },
+        { "char": "じゅう", "reading": "십 (10)", "romaji": "juu", "hint": "十" }
+      ]
+    },
+    {
+      "id": "basic-words-3",
+      "title": "기초 단어 - 일상표현",
+      "category": "vocabulary",
+      "items": [
+        { "char": "はい", "reading": "네", "romaji": "hai", "hint": "긍정 대답" },
+        { "char": "いいえ", "reading": "아니요", "romaji": "iie", "hint": "부정 대답" },
+        { "char": "わかりました", "reading": "알겠습니다", "romaji": "wakarimashita", "hint": "이해했을 때" },
+        { "char": "わかりません", "reading": "모르겠습니다", "romaji": "wakarimasen", "hint": "모를 때" },
+        { "char": "おねがいします", "reading": "부탁합니다", "romaji": "onegaishimasu", "hint": "부탁할 때" }
+      ]
+    },
+    {
+      "id": "grammar-1",
+      "title": "기초 문법 - ~です",
+      "category": "grammar",
+      "items": [
+        { "char": "これはペンです", "reading": "이것은 펜입니다", "romaji": "kore wa pen desu", "hint": "これ(이것) + は(은/는) + ~です(~입니다)" },
+        { "char": "わたしはがくせいです", "reading": "저는 학생입니다", "romaji": "watashi wa gakusei desu", "hint": "わたし(저) + は(은/는) + ~です" },
+        { "char": "これはなんですか", "reading": "이것은 무엇입니까?", "romaji": "kore wa nan desu ka", "hint": "~ですか = ~입니까? (의문형)" },
+        { "char": "そうです", "reading": "그렇습니다", "romaji": "sou desu", "hint": "맞다고 할 때" },
+        { "char": "ちがいます", "reading": "아닙니다/틀립니다", "romaji": "chigaimasu", "hint": "아니라고 할 때" }
+      ]
+    },
+    {
+      "id": "grammar-2",
+      "title": "기초 문법 - 조사 は/が/を",
+      "category": "grammar",
+      "items": [
+        { "char": "は", "reading": "은/는 (주제)", "romaji": "wa", "hint": "문장의 주제를 나타내요. 발음은 'wa'!" },
+        { "char": "が", "reading": "이/가 (주어)", "romaji": "ga", "hint": "주어를 강조할 때 써요" },
+        { "char": "を", "reading": "을/를 (목적어)", "romaji": "wo/o", "hint": "동작의 대상을 나타내요" },
+        { "char": "に", "reading": "에/에게 (방향/위치)", "romaji": "ni", "hint": "장소나 방향을 나타내요" },
+        { "char": "で", "reading": "에서 (장소/수단)", "romaji": "de", "hint": "행동이 일어나는 장소나 수단" }
       ]
     }
   ]
