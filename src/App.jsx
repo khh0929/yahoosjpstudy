@@ -6,8 +6,18 @@ import { LearnScreen } from './screens/LearnScreen.jsx';
 import { QuizScreen } from './screens/QuizScreen.jsx';
 import { ResultScreen } from './screens/ResultScreen.jsx';
 import { SettingsScreen } from './screens/SettingsScreen.jsx';
+import { InstallBanner } from './components/InstallBanner.jsx';
 
 export default function App() {
+  return (
+    <>
+      <AppContent />
+      <InstallBanner />
+    </>
+  );
+}
+
+function AppContent() {
   const [data, setData] = useState(null);
   const [progress, setProgress] = useState(null);
   const [stats, setStats] = useState({});
