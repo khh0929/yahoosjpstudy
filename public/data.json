@@ -1,10 +1,8 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "curriculum": [
     {
-      "id": "katakana-1",
-      "title": "가타가나 ア행",
-      "category": "katakana",
+      "id": "katakana-1", "title": "가타가나 ア행", "category": "katakana",
       "items": [
         { "char": "ア", "reading": "아", "romaji": "a", "hint": "A를 눕힌 모양" },
         { "char": "イ", "reading": "이", "romaji": "i", "hint": "人(사람 인)처럼 생겼어요" },
@@ -14,9 +12,7 @@
       ]
     },
     {
-      "id": "katakana-2",
-      "title": "가타가나 カ행",
-      "category": "katakana",
+      "id": "katakana-2", "title": "가타가나 カ행", "category": "katakana",
       "items": [
         { "char": "カ", "reading": "카", "romaji": "ka", "hint": "力(힘 력)과 비슷해요" },
         { "char": "キ", "reading": "키", "romaji": "ki", "hint": "十자에 가로획 추가" },
@@ -26,9 +22,7 @@
       ]
     },
     {
-      "id": "katakana-3",
-      "title": "가타가나 サ행",
-      "category": "katakana",
+      "id": "katakana-3", "title": "가타가나 サ행", "category": "katakana",
       "items": [
         { "char": "サ", "reading": "사", "romaji": "sa", "hint": "十자 + 삐침" },
         { "char": "シ", "reading": "시", "romaji": "shi", "hint": "점 2개 + 곡선 (웃는 얼굴)" },
@@ -38,9 +32,7 @@
       ]
     },
     {
-      "id": "katakana-4",
-      "title": "가타가나 タ행",
-      "category": "katakana",
+      "id": "katakana-4", "title": "가타가나 タ행", "category": "katakana",
       "items": [
         { "char": "タ", "reading": "타", "romaji": "ta", "hint": "夕(저녁 석)과 비슷해요" },
         { "char": "チ", "reading": "치", "romaji": "chi", "hint": "千(천)자와 비슷해요" },
@@ -50,9 +42,7 @@
       ]
     },
     {
-      "id": "katakana-5",
-      "title": "가타가나 ナ행",
-      "category": "katakana",
+      "id": "katakana-5", "title": "가타가나 ナ행", "category": "katakana",
       "items": [
         { "char": "ナ", "reading": "나", "romaji": "na", "hint": "十자와 비슷해요" },
         { "char": "ニ", "reading": "니", "romaji": "ni", "hint": "二(이)자 그대로" },
@@ -62,9 +52,7 @@
       ]
     },
     {
-      "id": "katakana-6",
-      "title": "가타가나 ハ행",
-      "category": "katakana",
+      "id": "katakana-6", "title": "가타가나 ハ행", "category": "katakana",
       "items": [
         { "char": "ハ", "reading": "하", "romaji": "ha", "hint": "八(여덟 팔)자 그대로" },
         { "char": "ヒ", "reading": "히", "romaji": "hi", "hint": "가로선 + 사선" },
@@ -74,9 +62,7 @@
       ]
     },
     {
-      "id": "katakana-7",
-      "title": "가타가나 マ행",
-      "category": "katakana",
+      "id": "katakana-7", "title": "가타가나 マ행", "category": "katakana",
       "items": [
         { "char": "マ", "reading": "마", "romaji": "ma", "hint": "マンガ(만화)의 マ" },
         { "char": "ミ", "reading": "미", "romaji": "mi", "hint": "가로선 3개" },
@@ -86,9 +72,7 @@
       ]
     },
     {
-      "id": "katakana-8",
-      "title": "가타가나 ヤ/ワ/ン행",
-      "category": "katakana",
+      "id": "katakana-8", "title": "가타가나 ヤ/ワ/ン행", "category": "katakana",
       "items": [
         { "char": "ヤ", "reading": "야", "romaji": "ya", "hint": "也(어조사 야)와 비슷" },
         { "char": "ユ", "reading": "유", "romaji": "yu", "hint": "由(말미암을 유)와 비슷" },
@@ -98,9 +82,7 @@
       ]
     },
     {
-      "id": "katakana-9",
-      "title": "가타가나 ラ행",
-      "category": "katakana",
+      "id": "katakana-9", "title": "가타가나 ラ행", "category": "katakana",
       "items": [
         { "char": "ラ", "reading": "라", "romaji": "ra", "hint": "良(좋을 량)에서 유래" },
         { "char": "リ", "reading": "리", "romaji": "ri", "hint": "세로선 2개" },
@@ -110,9 +92,7 @@
       ]
     },
     {
-      "id": "katakana-10",
-      "title": "가타가나 탁음 ガ/ザ/ダ행",
-      "category": "katakana",
+      "id": "katakana-10", "title": "가타가나 탁음 ガ행", "category": "katakana",
       "items": [
         { "char": "ガ", "reading": "가", "romaji": "ga", "hint": "カ + 탁점(゛)" },
         { "char": "ギ", "reading": "기", "romaji": "gi", "hint": "キ + 탁점(゛)" },
@@ -122,9 +102,7 @@
       ]
     },
     {
-      "id": "katakana-11",
-      "title": "가타가나 탁음 ザ/ダ행",
-      "category": "katakana",
+      "id": "katakana-11", "title": "가타가나 탁음 ザ/ダ행", "category": "katakana",
       "items": [
         { "char": "ザ", "reading": "자", "romaji": "za", "hint": "サ + 탁점(゛)" },
         { "char": "ジ", "reading": "지", "romaji": "ji", "hint": "シ + 탁점(゛)" },
@@ -134,9 +112,7 @@
       ]
     },
     {
-      "id": "katakana-12",
-      "title": "가타가나 탁음 バ행 + 반탁음 パ행",
-      "category": "katakana",
+      "id": "katakana-12", "title": "가타가나 탁음 バ행", "category": "katakana",
       "items": [
         { "char": "バ", "reading": "바", "romaji": "ba", "hint": "ハ + 탁점(゛)" },
         { "char": "ビ", "reading": "비", "romaji": "bi", "hint": "ヒ + 탁점(゛)" },
@@ -146,11 +122,9 @@
       ]
     },
     {
-      "id": "katakana-13",
-      "title": "가타가나 반탁음 パ행",
-      "category": "katakana",
+      "id": "katakana-13", "title": "가타가나 반탁음 パ행", "category": "katakana",
       "items": [
-        { "char": "パ", "reading": "파", "romaji": "pa", "hint": "ハ + 반탁점(゜) 동그라미!" },
+        { "char": "パ", "reading": "파", "romaji": "pa", "hint": "ハ + 반탁점(゜)" },
         { "char": "ピ", "reading": "피", "romaji": "pi", "hint": "ヒ + 반탁점(゜)" },
         { "char": "プ", "reading": "푸", "romaji": "pu", "hint": "フ + 반탁점(゜)" },
         { "char": "ペ", "reading": "페", "romaji": "pe", "hint": "ヘ + 반탁점(゜)" },
@@ -158,9 +132,7 @@
       ]
     },
     {
-      "id": "hiragana-1",
-      "title": "히라가나 あ행",
-      "category": "hiragana",
+      "id": "hiragana-1", "title": "히라가나 あ행", "category": "hiragana",
       "items": [
         { "char": "あ", "reading": "아", "romaji": "a", "hint": "安(편안 안)에서 유래" },
         { "char": "い", "reading": "이", "romaji": "i", "hint": "以(써 이)에서 유래" },
@@ -170,9 +142,7 @@
       ]
     },
     {
-      "id": "hiragana-2",
-      "title": "히라가나 か행",
-      "category": "hiragana",
+      "id": "hiragana-2", "title": "히라가나 か행", "category": "hiragana",
       "items": [
         { "char": "か", "reading": "카", "romaji": "ka", "hint": "加(더할 가)에서 유래" },
         { "char": "き", "reading": "키", "romaji": "ki", "hint": "幾(몇 기)에서 유래" },
@@ -182,9 +152,7 @@
       ]
     },
     {
-      "id": "hiragana-3",
-      "title": "히라가나 さ행",
-      "category": "hiragana",
+      "id": "hiragana-3", "title": "히라가나 さ행", "category": "hiragana",
       "items": [
         { "char": "さ", "reading": "사", "romaji": "sa", "hint": "左(왼 좌)에서 유래" },
         { "char": "し", "reading": "시", "romaji": "shi", "hint": "之(갈 지)에서 유래" },
@@ -194,9 +162,7 @@
       ]
     },
     {
-      "id": "hiragana-4",
-      "title": "히라가나 た행",
-      "category": "hiragana",
+      "id": "hiragana-4", "title": "히라가나 た행", "category": "hiragana",
       "items": [
         { "char": "た", "reading": "타", "romaji": "ta", "hint": "太(클 태)에서 유래" },
         { "char": "ち", "reading": "치", "romaji": "chi", "hint": "知(알 지)에서 유래" },
@@ -206,9 +172,7 @@
       ]
     },
     {
-      "id": "hiragana-5",
-      "title": "히라가나 な행",
-      "category": "hiragana",
+      "id": "hiragana-5", "title": "히라가나 な행", "category": "hiragana",
       "items": [
         { "char": "な", "reading": "나", "romaji": "na", "hint": "奈(어찌 나)에서 유래" },
         { "char": "に", "reading": "니", "romaji": "ni", "hint": "仁(어질 인)에서 유래" },
@@ -218,9 +182,7 @@
       ]
     },
     {
-      "id": "hiragana-6",
-      "title": "히라가나 は행",
-      "category": "hiragana",
+      "id": "hiragana-6", "title": "히라가나 は행", "category": "hiragana",
       "items": [
         { "char": "は", "reading": "하", "romaji": "ha", "hint": "波(물결 파)에서 유래" },
         { "char": "ひ", "reading": "히", "romaji": "hi", "hint": "比(견줄 비)에서 유래" },
@@ -230,9 +192,7 @@
       ]
     },
     {
-      "id": "hiragana-7",
-      "title": "히라가나 ま행",
-      "category": "hiragana",
+      "id": "hiragana-7", "title": "히라가나 ま행", "category": "hiragana",
       "items": [
         { "char": "ま", "reading": "마", "romaji": "ma", "hint": "末(끝 말)에서 유래" },
         { "char": "み", "reading": "미", "romaji": "mi", "hint": "美(아름다울 미)에서 유래" },
@@ -242,9 +202,7 @@
       ]
     },
     {
-      "id": "hiragana-8",
-      "title": "히라가나 や행",
-      "category": "hiragana",
+      "id": "hiragana-8", "title": "히라가나 や행", "category": "hiragana",
       "items": [
         { "char": "や", "reading": "야", "romaji": "ya", "hint": "也(어조사 야)에서 유래" },
         { "char": "ゆ", "reading": "유", "romaji": "yu", "hint": "由(말미암을 유)에서 유래" },
@@ -252,9 +210,7 @@
       ]
     },
     {
-      "id": "hiragana-9",
-      "title": "히라가나 ら행",
-      "category": "hiragana",
+      "id": "hiragana-9", "title": "히라가나 ら행", "category": "hiragana",
       "items": [
         { "char": "ら", "reading": "라", "romaji": "ra", "hint": "良(좋을 량)에서 유래" },
         { "char": "り", "reading": "리", "romaji": "ri", "hint": "利(이로울 리)에서 유래" },
@@ -264,9 +220,7 @@
       ]
     },
     {
-      "id": "hiragana-10",
-      "title": "히라가나 わ행 + ん",
-      "category": "hiragana",
+      "id": "hiragana-10", "title": "히라가나 わ행 + ん", "category": "hiragana",
       "items": [
         { "char": "わ", "reading": "와", "romaji": "wa", "hint": "和(화할 화)에서 유래" },
         { "char": "を", "reading": "오/wo", "romaji": "wo", "hint": "목적격 조사로 주로 쓰여요" },
@@ -274,21 +228,18 @@
       ]
     },
     {
-      "id": "basic-words-1",
-      "title": "기초 단어 - 인사",
-      "category": "vocabulary",
+      "id": "basic-words-1", "title": "기초 단어 - 인사", "category": "vocabulary",
       "items": [
         { "char": "こんにちは", "reading": "안녕하세요", "romaji": "konnichiwa", "hint": "낮 인사" },
         { "char": "おはよう", "reading": "좋은 아침", "romaji": "ohayou", "hint": "아침 인사" },
         { "char": "こんばんは", "reading": "안녕하세요(저녁)", "romaji": "konbanwa", "hint": "저녁 인사" },
         { "char": "ありがとう", "reading": "고마워요", "romaji": "arigatou", "hint": "감사 표현" },
-        { "char": "すみません", "reading": "실례합니다", "romaji": "sumimasen", "hint": "사과/주의 끌기" }
+        { "char": "すみません", "reading": "실례합니다", "romaji": "sumimasen", "hint": "사과/주의 끌기" },
+        { "char": "おかえり", "reading": "어서 와", "romaji": "okaeri", "hint": "귀가한 사람에게 — たぶん에 나와요" }
       ]
     },
     {
-      "id": "basic-words-2",
-      "title": "기초 단어 - 숫자",
-      "category": "vocabulary",
+      "id": "basic-words-2", "title": "기초 단어 - 숫자", "category": "vocabulary",
       "items": [
         { "char": "いち", "reading": "일 (1)", "romaji": "ichi", "hint": "一" },
         { "char": "に", "reading": "이 (2)", "romaji": "ni", "hint": "二" },
@@ -303,9 +254,7 @@
       ]
     },
     {
-      "id": "basic-words-3",
-      "title": "기초 단어 - 일상표현",
-      "category": "vocabulary",
+      "id": "basic-words-3", "title": "기초 단어 - 일상표현", "category": "vocabulary",
       "items": [
         { "char": "はい", "reading": "네", "romaji": "hai", "hint": "긍정 대답" },
         { "char": "いいえ", "reading": "아니요", "romaji": "iie", "hint": "부정 대답" },
@@ -315,9 +264,7 @@
       ]
     },
     {
-      "id": "grammar-1",
-      "title": "기초 문법 - ~です",
-      "category": "grammar",
+      "id": "grammar-1", "title": "기초 문법 - ~です", "category": "grammar",
       "items": [
         { "char": "これはペンです", "reading": "이것은 펜입니다", "romaji": "kore wa pen desu", "hint": "これ(이것) + は(은/는) + ~です(~입니다)" },
         { "char": "わたしはがくせいです", "reading": "저는 학생입니다", "romaji": "watashi wa gakusei desu", "hint": "わたし(저) + は(은/는) + ~です" },
@@ -327,15 +274,119 @@
       ]
     },
     {
-      "id": "grammar-2",
-      "title": "기초 문법 - 조사 は/が/を",
-      "category": "grammar",
+      "id": "grammar-2", "title": "기초 문법 - 조사 は/が/を", "category": "grammar",
       "items": [
         { "char": "は", "reading": "은/는 (주제)", "romaji": "wa", "hint": "문장의 주제를 나타내요. 발음은 'wa'!" },
         { "char": "が", "reading": "이/가 (주어)", "romaji": "ga", "hint": "주어를 강조할 때 써요" },
         { "char": "を", "reading": "을/를 (목적어)", "romaji": "wo/o", "hint": "동작의 대상을 나타내요" },
         { "char": "に", "reading": "에/에게 (방향/위치)", "romaji": "ni", "hint": "장소나 방향을 나타내요" },
         { "char": "で", "reading": "에서 (장소/수단)", "romaji": "de", "hint": "행동이 일어나는 장소나 수단" }
+      ]
+    },
+    {
+      "id": "song-hiroin-words", "title": "🎵 ヒロイン - 핵심 단어", "category": "vocabulary",
+      "items": [
+        { "char": "毎日", "reading": "매일", "romaji": "mainichi", "hint": "まいにち — 君の毎日に(너의 일상에)" },
+        { "char": "空", "reading": "하늘", "romaji": "sora", "hint": "そら — 白い空から(하얀 하늘에서)" },
+        { "char": "雪", "reading": "눈", "romaji": "yuki", "hint": "ゆき — 雪が落ちた(눈이 떨어졌어)" },
+        { "char": "隣", "reading": "옆/곁", "romaji": "tonari", "hint": "となり — 今隣で(지금 옆에서)" },
+        { "char": "綺麗", "reading": "예쁘다/아름답다", "romaji": "kirei", "hint": "きれい — 雪が綺麗(눈이 예뻐)" },
+        { "char": "街", "reading": "동네/마을", "romaji": "machi", "hint": "まち — 君の街(너의 동네)" },
+        { "char": "場所", "reading": "장소", "romaji": "basho", "hint": "ばしょ — 遠い場所(먼 곳)" },
+        { "char": "夜空", "reading": "밤하늘", "romaji": "yozora", "hint": "よぞら — 見たい夜空(보고 싶은 밤하늘)" },
+        { "char": "映画", "reading": "영화", "romaji": "eiga", "hint": "えいが — どんな映画(어떤 영화)" },
+        { "char": "答え", "reading": "대답", "romaji": "kotae", "hint": "こたえ — 出しかけた答え(꺼내려 하던 대답)" }
+      ]
+    },
+    {
+      "id": "song-hiroin-verbs", "title": "🎵 ヒロイン - 동사/표현", "category": "vocabulary",
+      "items": [
+        { "char": "似合わない", "reading": "어울리지 않다", "romaji": "niawanai", "hint": "にあわない — 僕は似合わないかな" },
+        { "char": "落ちた", "reading": "떨어졌다", "romaji": "ochita", "hint": "おちた — 雪が落ちた" },
+        { "char": "消えた", "reading": "사라졌다", "romaji": "kieta", "hint": "きえた — 寂しそうに消えた" },
+        { "char": "笑う", "reading": "웃다", "romaji": "warau", "hint": "わらう — 雪が綺麗と笑うのは" },
+        { "char": "忘れてしまいそう", "reading": "잊어버릴 것 같아", "romaji": "wasurete shimaisou", "hint": "~てしまう = ~해버리다, ~そう = ~할 것 같다" },
+        { "char": "変われない", "reading": "변할 수 없다", "romaji": "kawarenai", "hint": "かわれない — 強く優しい僕に変われないかな" },
+        { "char": "優しい", "reading": "다정하다/친절하다", "romaji": "yasashii", "hint": "やさしい — 強く優しい(강하고 다정한)" },
+        { "char": "気付けば", "reading": "어느새/정신차리니", "romaji": "kidzukeba", "hint": "きづけば — 気付けば辺りは(어느새 주변은)" }
+      ]
+    },
+    {
+      "id": "song-doraifurawa-words", "title": "🎵 ドライフラワー - 핵심 단어", "category": "vocabulary",
+      "items": [
+        { "char": "余裕", "reading": "여유", "romaji": "yoyuu", "hint": "よゆう — 余裕のない二人(여유 없는 둘)" },
+        { "char": "喧嘩", "reading": "싸움", "romaji": "kenka", "hint": "けんか — 喧嘩ばっかり(싸우기만)" },
+        { "char": "部屋", "reading": "방", "romaji": "heya", "hint": "へや — 二人きりしかいない部屋(둘만 있는 방)" },
+        { "char": "理由", "reading": "이유", "romaji": "riyuu", "hint": "りゆう — 理由もちゃんと話せない" },
+        { "char": "声", "reading": "목소리", "romaji": "koe", "hint": "こえ — 声も顔も(목소리도 얼굴도)" },
+        { "char": "顔", "reading": "얼굴", "romaji": "kao", "hint": "かお — 声も顔も" },
+        { "char": "別れ", "reading": "이별", "romaji": "wakare", "hint": "わかれ — 悲しい別れ(슬픈 이별)" },
+        { "char": "時間", "reading": "시간", "romaji": "jikan", "hint": "じかん — 時間がたてば(시간이 지나면)" },
+        { "char": "名前", "reading": "이름", "romaji": "namae", "hint": "なまえ — 貴方の名前を呼ぶ" },
+        { "char": "気持ち", "reading": "감정/마음", "romaji": "kimochi", "hint": "きもち — 好きという気持ち(좋아한다는 감정)" }
+      ]
+    },
+    {
+      "id": "song-doraifurawa-verbs", "title": "🎵 ドライフラワー - 동사/표현", "category": "vocabulary",
+      "items": [
+        { "char": "泣く", "reading": "울다", "romaji": "naku", "hint": "なく — 貴方が眠った後に泣くのは嫌" },
+        { "char": "眠った", "reading": "잠들었다", "romaji": "nemutta", "hint": "ねむった — 貴方が眠った後に" },
+        { "char": "忘れてく", "reading": "잊혀가다", "romaji": "wasureteku", "hint": "わすれてく — 時間がたてば忘れてく (忘れていく 구어체)" },
+        { "char": "色褪せる", "reading": "빛바래다", "romaji": "iroaseru", "hint": "いろあせる — きっときっと色褪せる" },
+        { "char": "呼ぶ", "reading": "부르다", "romaji": "yobu", "hint": "よぶ — 貴方の名前を呼ぶ" },
+        { "char": "抱える", "reading": "안다/품다", "romaji": "kakaeru", "hint": "かかえる — ずっと抱えてよ(계속 안고 있어줘)" },
+        { "char": "嫌いじゃない", "reading": "싫지 않다 (=좋아한다)", "romaji": "kirai janai", "hint": "이중부정! 全部全部嫌いじゃないの" },
+        { "char": "〜みたい", "reading": "~같아/~처럼", "romaji": "~mitai", "hint": "구어체 비유 — ドライフラワーみたい" }
+      ]
+    },
+    {
+      "id": "song-tabun-words", "title": "🎵 たぶん - 핵심 단어", "category": "vocabulary",
+      "items": [
+        { "char": "涙", "reading": "눈물", "romaji": "namida", "hint": "なみだ — 涙流すことすら無いまま" },
+        { "char": "朝", "reading": "아침", "romaji": "asa", "hint": "あさ — 一人で迎えた朝に" },
+        { "char": "音", "reading": "소리", "romaji": "oto", "hint": "おと — 鳴り響く誰かの音" },
+        { "char": "言葉", "reading": "말/단어", "romaji": "kotoba", "hint": "ことば — 思わず零れた言葉(무심코 흘러나온 말)" },
+        { "char": "当たり前", "reading": "당연한 것/일상", "romaji": "atarimae", "hint": "あたりまえ — 当たり前がまだ残っている" },
+        { "char": "恋愛", "reading": "연애", "romaji": "renai", "hint": "れんあい — 大衆的恋愛(대중적인 연애)" },
+        { "char": "仕方がない", "reading": "어쩔 수 없다", "romaji": "shikata ga nai", "hint": "しかたがない — 관용구! 仕方がないよきっと" }
+      ]
+    },
+    {
+      "id": "song-tabun-verbs", "title": "🎵 たぶん - 동사/표현", "category": "vocabulary",
+      "items": [
+        { "char": "流す", "reading": "흘리다", "romaji": "nagasu", "hint": "ながす — 涙流すことすら無いまま" },
+        { "char": "終わる", "reading": "끝나다", "romaji": "owaru", "hint": "おわる — さよならと共に終わるだけ" },
+        { "char": "思わず", "reading": "무심코/자신도 모르게", "romaji": "omowazu", "hint": "おもわず — 思わず零れた言葉は" },
+        { "char": "たぶん", "reading": "아마도", "romaji": "tabun", "hint": "확신 없을 때 쓰는 부사 — きっと보다 불확실함" },
+        { "char": "きっと", "reading": "분명히/틀림없이", "romaji": "kitto", "hint": "확신할 때 — たぶん보다 확실함" },
+        { "char": "ずっと", "reading": "계속/쭉", "romaji": "zutto", "hint": "ずっとそばにいたって(계속 곁에 있어도)" },
+        { "char": "だんだん", "reading": "점점/서서히", "romaji": "dandan", "hint": "だんだんとズレていった(점점 어긋나 갔어)" }
+      ]
+    },
+    {
+      "id": "song-pretender-words", "title": "🎵 Pretender - 핵심 단어", "category": "vocabulary",
+      "items": [
+        { "char": "予想通り", "reading": "예상대로", "romaji": "yosou doori", "hint": "よそうどおり — それは予想通り" },
+        { "char": "結局", "reading": "결국", "romaji": "kekkyoku", "hint": "けっきょく — 結局ただの観客だ" },
+        { "char": "感情", "reading": "감정", "romaji": "kanjou", "hint": "かんじょう — 感情のないアイムソーリー" },
+        { "char": "運命", "reading": "운명", "romaji": "unmei", "hint": "うんめい — 君の運命のヒトは僕じゃない" },
+        { "char": "関係", "reading": "관계", "romaji": "kankei", "hint": "かんけい — もっと違う関係で" },
+        { "char": "性格", "reading": "성격", "romaji": "seikaku", "hint": "せいかく — もっと違う性格で" },
+        { "char": "愛", "reading": "사랑", "romaji": "ai", "hint": "あい — 愛を伝えられたらいいな" },
+        { "char": "未来", "reading": "미래", "romaji": "mirai", "hint": "みらい — 疼きだす未来には" },
+        { "char": "無駄", "reading": "소용없다/무의미", "romaji": "muda", "hint": "むだ — そう願っても無駄だから" }
+      ]
+    },
+    {
+      "id": "song-pretender-verbs", "title": "🎵 Pretender - 동사/표현", "category": "vocabulary",
+      "items": [
+        { "char": "辛い", "reading": "힘들다/괴롭다", "romaji": "tsurai", "hint": "つらい — 辛いけど否めない" },
+        { "char": "触れた", "reading": "닿았다/만졌다", "romaji": "fureta", "hint": "ふれた — 髪に触れただけで" },
+        { "char": "甘い", "reading": "달콤하다", "romaji": "amai", "hint": "あまい — 痛いや いやでも甘いな" },
+        { "char": "〜にとって", "reading": "~에게 있어서", "romaji": "~ni totte", "hint": "僕にとって君は何? (나한테 너는 뭔데?)" },
+        { "char": "確かな", "reading": "확실한", "romaji": "tashikana", "hint": "たしかな — たったひとつ確かなことが" },
+        { "char": "いつも通り", "reading": "언제나처럼/평소대로", "romaji": "itsumo doori", "hint": "いつもどおり — それはいつも通り" },
+        { "char": "〜たって", "reading": "~해도 (구어체)", "romaji": "~tatte", "hint": "ずっとそばにいたって = 계속 곁에 있어도 (~ても의 구어체)" }
       ]
     }
   ]
